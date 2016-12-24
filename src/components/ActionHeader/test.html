@@ -1,0 +1,129 @@
+<template lang='jade'>
+	#action-header
+		
+		transition(name='action')
+			.entry-btn.qk-round.card-shadow.v-h-center(v-show='!mask',@click='toggle')
+				img(src='../../assets/ic_add.svg')
+		transition(name='action-content')
+			.action-open.shadow-mask(v-show='mask',@click.self='toggle')
+				ul
+					li
+						router-link(to='/writenote')
+							span.card-shadow 写笔记
+							.detail-btn.qk-round.card-shadow.v-h-center
+								img(src='../../assets/ic_note.svg')
+					li
+						a(@click='goCenter')
+							span.card-shadow 个人中心
+							.detail-btn.qk-round.card-shadow.v-h-center
+								img(src='../../assets/ic_person.svg')
+			
+</template>
+
+<style scoped lang='less'>
+@action-btn:#e91e63;
+@mask-color:rgba(255,255,255,.8);
+@words:#000;
+@notice-color:#e8e4e4;
+
+	#action-btn{
+		.entry-btn{
+			position:fixed;
+			right:0.3rem;
+			bottom:0.4rem;
+			width:0.5rem;
+			height:0.5rem;
+			background:@action-btn;
+
+			&>img{
+				width:0.4rem;
+				height:0.4rem;
+			}
+		}
+
+
+
+		.action-open{
+			position:fixed;
+			z-index:99;
+			left:0;
+			top:0;
+			right:0;
+			bottom:0;
+
+			&:after{
+				content:'';
+				position:absolute;
+				width:300%;
+				height:300%;
+				background:@mask-color;
+			}
+		}
+
+		li{
+			position:fixed;
+			right:0.3rem;
+			bottom:0.4rem;
+			
+			z-index:9;
+
+			&:last-child{
+				transform:translateY(-0.6rem)
+			}
+
+			a{
+				display: block;
+				width:100%;
+				display: flex;
+				align-items:center;
+
+				&>span{
+					background:@notice-color;
+					padding:0.04rem 0.08rem;
+					border-radius:4px;
+					color: @words;
+					font-size:0.13rem;
+				}
+			}
+		}
+
+		.detail-btn{
+			width:0.5rem;
+			height:0.5rem;
+			background:@action-btn;
+			margin-left:0.1rem;
+
+			&>img{
+				width:0.3rem;
+				height:0.3rem;
+			}
+		}
+	}
+</style>
+
+<script>
+	export default{
+		data(){
+            return {
+            	mask:false,
+            	amask:false
+            }
+		},
+		// computed:{
+		// 	openId(){
+		// 		return this.$store.state.baseConfig.userInfo._id;
+		// 	}
+		// },
+		methods:{
+            toggle(){
+            	this.mask = !this.mask
+            },
+            goCenter(){
+            	this.$store.commit('SAVEUSERID',{
+            		_id:this.$store.state.baseConfig.userInfo._id
+            	})
+            	this.$router.push('/mycenter/'+this.$store.state.baseConfig.userInfo._id)
+            }
+		}
+	}
+</script>

@@ -1,0 +1,52 @@
+.note-container(v-for='item in leftPart.l_container')
+				.note-items
+					.cover-container
+						img(:src='item.img')
+					.note-bottom
+						h5 nihaoa
+						.note-content 第二次脑跳之后就给老爷换掉了之前的简单mobile，这个tiny love的有投影功能的床铃可以从出生一直用到toddler，推荐给只打算买一个音乐床铃的麻麻们进入第二次脑跳阶段宝宝对外部世界感知更加明显，醒着的时间越来越久，也喜欢看动来动去的东西 对光的敏感度也大大增加！新技能就是学会笑了 逗逗就笑 开始互动咯 小怪物正式升级。tiny love在澳洲的母婴店都有卖，床铃，游戏毯 小玩具等等这个床铃3⃣️个功能，0月起可以放在cot上 小动物伴随3种音乐转动 灯罩里有投影大一些把杆子和灯罩拿掉直接投影到天鹏上（图二），再大一些把灯罩就回去 放在床头当小夜灯详情看图三 官方图现在老爷不睡的时候就给他放床铃玩玩 也不会哭闹最后送上大头儿子和胖麻麻合照😛
+						.publisher
+							.publisher-info
+								img.img-margin-right.publisher-heading.qk-round(src='http://hbimg.b0.upaiyun.com/2266f4b7490a813d8908222fc323a229670db9b614662-un3VMj_sq320')
+								span.publisher-name APRIL-LOIS
+							.zan
+								img.img-margin-right.qk-zan(src='http://s.xiaohongshu.com/s/mobile-discovery/*/search/img/likes-icon-be12924.png')
+								span.zan-num 8
+
+
+
+
+
+
+
+
+
+
+
+								// note模板字符串
+function noteModel(obj){
+	return `<li class="note-container" data-link='${obj._id}'>
+	<div class="note-items">
+		<div class="cover-container" >
+			<img src="${obj.img[0]}" alt="">
+		</div>
+
+		<div class="note-bottom">
+			<h5 class='line-clamp'>${obj.title}</h5>
+			<div class="note-content line-clamp">${obj.content}</div>
+
+			<div class="publisher">
+				<div class="publisher-info">
+					<img src="${obj.poster.headimgurl}" alt="" class='img-margin-right publisher-heading qk-round'>
+					<span class="publisher-name single-ellipsis">${obj.poster.username}</span>
+				</div>
+
+				<div class="zan">
+					<img class="img-margin-right qk-zan" src='http://7xlxny.com1.z0.glb.clouddn.com/h5/v2/home/views.png' />
+					<span class="zan-num">${obj.pv}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</li>`
+}

@@ -1,0 +1,159 @@
+<template lang='jade'>
+	.note-article.b-border
+		article
+			h2.article-title {{articlePart.title}}
+			.article-content(v-html='articlePart.content')
+			
+		carousel(:carousels='noteDetailData.common.imgs')
+
+		.article-info.ele-justify
+			time {{articlePart.time+'发布'}}
+			.article-act
+				button.init-btn.img-margin-right(:class="{active:articlePart.issp}",@click='spot')
+					span.favorite-icon.icon.img-margin-right
+					span 赞 · {{articlePart.sp}}
+				button.init-btn(:class="{active:articlePart.iskeep}",@click='keep')
+					span.star-icon.icon.img-margin-right
+					span 收藏 · {{articlePart.keeps}}
+
+</template>
+
+<style scoped lang='less'>
+@white:#fff;
+@black:#000;
+@btn-border:#e6e6e6;
+@collect-color:#ff2741;
+@article-info-color:#999;
+
+	.note-article{
+		padding:0.15rem;
+		font-size:0.15rem;
+		background:@white;
+		h2{
+			font-size:0.15rem;
+			margin:0.05rem 0;
+		}
+
+		.article-content{
+			line-height:0.27rem;
+			font-weight: 100;
+			color:@black;
+		}
+
+		.article-info{
+			font-size:0.12rem;
+			margin-top:0.15rem;
+			color:@article-info-color;
+		}
+
+		button{
+			padding:0.04rem 0.08rem;
+			font-size:.12rem;
+			background:@collect-color;
+			color:@white;
+
+			.icon{
+				width:0.14rem;
+				height:0.14rem;
+			}
+
+			.favorite-icon{
+				background:url('../../assets/ic_favorite_unactive.svg') no-repeat;
+				background-size:cover;
+			}
+
+			.star-icon{
+				background:url('../../assets/ic_star_unactive.svg') no-repeat;
+				background-size:cover;
+			}
+
+			&.active{
+				border:0.01rem solid @btn-border;
+				color:@article-info-color;
+				background:transparent;
+
+				.favorite-icon{
+					background:url('../../assets/ic_favorite_active.svg') no-repeat;
+					background-size:cover;
+				}
+
+				.star-icon{
+					background:url('../../assets/ic_star_active.svg') no-repeat;
+					background-size:cover;
+				}
+			}
+
+
+
+			
+		}
+	}
+</style>
+
+<script>
+
+	import Carousel from 'components/Carousel';
+
+	export default{
+		props:['articlePart'],
+		data(){
+			return {
+				type:''
+			}
+		},
+		components:{
+			Carousel
+		},
+		computed:{
+			sendData(){
+				return{
+					page_id:this.$store.state.aboutNote.activeNoteId,
+					user_id:this.$store.state.baseConfig.userInfo._id,
+					type:this.type
+				}
+			},
+			spState(){
+				return this.articlePart.issp ? 'cancle' : 'confirm'
+			},
+			keepState(){
+				return this.articlePart.iskeep ? 'cancle' : 'confirm'
+			}
+		},
+		methods:{
+			spot(){		//点赞
+
+				this.type = this.spState;
+				this.$http.post(`${this.$store.state.baseConfig.host}spot/page`,this.sendData,{"emulateJSON":true,"emulateHTTP":true})
+				.then((res)=>{		//点赞成功
+					if(res.data.code === 0){
+						if(this.spState === 'cancle'){
+							this.$emit('aboutSpot',0)
+						}else{
+							this.$emit('aboutSpot',1)
+						}
+					}
+					
+				},(err)=>{		//点赞失败
+					console.log(err);
+					alert('服务器开小差啦')
+				})
+			},
+			keep(){		//收藏
+				this.type = this.keepState;
+				this.$http.post(`${this.$store.state.baseConfig.host}keep/page`,this.sendData,{"emulateJSON":true,"emulateHTTP":true})
+					.then((res)=>{		//收藏成功
+						if(res.data.code === 0){
+							if(this.keepState === 'cancle'){
+								this.$emit('aboutKeep',0)
+							}else{
+								this.$emit('aboutKeep',1)
+							}
+						}
+					
+					},(err)=>{		//收藏失败
+					alert('服务器开小差啦')
+					})
+			}
+		}
+	}
+</script>

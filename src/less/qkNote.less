@@ -1,0 +1,195 @@
+@mask_color:rgba(255,255,255,.8);
+@border-color:#ddd;
+@bottom-border:#e6e6e6;
+@sheet-mask:rgba(0,0,0,.6);
+@bigImg-mask:rgba(0,0,0,.8);
+@pink-color:#fc4766;
+@white:#fff;
+@time-color:rgba(0, 0, 0, 0.54);
+@black-a:rgba(0,0,0,.87);
+@no-color:#333333;
+// 图片圆角
+.qk-round{
+  border-radius: 50%;
+}
+
+//图片距离右边元素距离
+.img-margin-right{
+  margin-right: 0.04rem;
+}
+
+// 图片阴影
+.card-shadow{
+	box-shadow: 0 0.02rem 0.05rem 0 rgba(0,0,0,0.16),0 0.02rem 0.1rem 0 rgba(0,0,0,0.12);
+}
+
+// 白色阴影遮罩
+.shadow-mask{
+	box-shadow:0 0 0 99.99rem @mask_color;
+}
+
+// 黑色色阴影遮罩
+.shadow-mask-black{
+	box-shadow:0 0 0 99.99rem @bigImg-mask;
+}
+
+// 水平垂直居中
+.v-h-center{
+	display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+//定位方式水平垂直居中
+.pos-center{
+	position:absolute;
+	left:50%;
+	top:50%;
+	transform:translate3d(-50%,-50%,0);
+}
+
+// 伪类水平垂直居中
+.before-after-center{
+	&:before,&:after{
+		content:'';
+		position:absolute;
+		left:50%;
+		top:50%;
+		transform:translate3d(-50%,-50%,0);
+	}
+}
+
+// 元素两端对齐分布
+.ele-justify{
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+// 去除按钮的一般css
+.init-btn{
+	border:none;
+	outline: none;
+	background:transparent;
+	appearance:none;
+	border-radius: 0.04rem;
+	cursor: pointer;
+}
+
+//上下边框
+.t-b-border{
+	border-top:0.01rem solid @border-color;
+	border-bottom:0.01rem solid @border-color;
+}
+
+// 底部边框
+.b-border{
+	border-bottom:0.01rem solid @bottom-border
+}
+
+// 顶部边框
+.t-border{
+	border-top:0.01rem solid @bottom-border
+}
+
+//表示时间的颜色
+time{
+	color:@time-color
+}
+
+//sheet的mask
+.sheet-mask{
+	background:@sheet-mask;
+}
+
+//固定几行
+.line-clamp{
+	display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    overflow:hidden;
+}
+
+//单行排，溢出隐藏
+.single-ellipsis{
+	overflow: hidden;
+	white-space:nowrap;
+	text-overflow: ellipsis;
+}
+
+//关于textarea的设置
+.init-textarea{
+	font-size:0.17rem;
+	line-height:inherit;
+	width:100%;
+	display: block;
+	height:1rem;
+}
+
+
+//设置没有关注，收藏，笔记的样式
+.no-aboutmy{
+	padding:0.1rem 0;
+	text-align:center;
+	font-size:0.15rem;
+	background:@white;
+	img{
+		width:1.66rem;
+		height:1rem;
+	}
+
+	.attention{
+		font-size: 0.14rem;
+		font-weight: 500;
+		letter-spacing: 0.01rem;
+		margin:0.16rem 0 0.12rem 0
+	}
+
+	a{
+		display:inline-block;
+		padding:0.04rem 0.12rem;
+		color:@white;
+		border-radius:0.04rem;
+		background:@no-color;
+		font-size: 0.14rem;
+
+		&.center-write{
+			margin-top: 0.14rem;
+		}
+	}
+}
+
+
+.qk-wave{
+	position:relative;
+	&:before{
+		content:'';
+		position:absolute;
+		left:0;
+		top:0;
+		width:.24rem;
+		height:0.24rem;
+		background:rgba(0,0,0,.48);
+		border-radius:50%;
+		transform:scale(0);
+		z-index:0
+	}
+
+	&:active,&:hover{
+		&:before{
+			animation:wave .7s ease;
+		}
+	}
+}
+
+@keyframes wave{
+	100%{
+		transform:scale(1.8);
+		opacity:0;
+	}
+}
+
+.img-24{
+	width:0.24rem;
+	height:0.24rem;	
+}

@@ -1,0 +1,51 @@
+<template lang='jade'>
+	.user-center-header
+		.user-heading
+			img.qk-round(:src='userMsg.headimgurl')
+		p.user-name {{userMsg.username}}
+
+</template>
+
+<style lang='less' scoped>
+@white:#fff;
+
+	.user-center-header{
+		display: flex;
+		flex-direction:column;
+		justify-content:center;
+		text-align:center;
+		background:url('../../assets/center-bg.jpg') center center no-repeat;
+		background-size:cover;
+		color:@white;
+		padding:.2rem 0;
+		img{
+			width:0.9rem;
+			height:0.9rem;
+			border:0.03rem solid @white;
+		}
+
+		.user-name{
+			margin:0.1rem 0;
+		}
+
+		.about{
+			padding:0.1rem 0;
+			position:relative;
+
+			span{
+				flex:1;
+				border-right:0.01rem solid @white;
+
+				&:last-child{
+					border:none
+				}
+			}
+		}
+	}
+</style>
+
+<script>
+	export default{
+		props:['userMsg']
+	}
+</script>
